@@ -13,7 +13,7 @@ const HomePage = () => {
 
     <section className="home-page mt-5 text-center">
       <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent capitalize text-center">current Products </h1>
-      <div className="grid grid-cols-4 gap-4 my-10">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 my-10">
         {products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}

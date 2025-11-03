@@ -12,9 +12,8 @@ const Footer = () => {
           href="https://mohamedeldegheidy.42web.io/?i=1"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 dark:text-blue-400 hover:underline mx-2"
+          className="text-blue-600 dark:text-blue-400 hover:underline mx-2 "
         >
-          <img src="../../../public/logo.svg" alt="My portfolio Logo" className="h-12 w-12 inline-block"/>
           Visit my portfolio
         </a>
       </p>
