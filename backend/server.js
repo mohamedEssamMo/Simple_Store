@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import path from 'path';
 import { connectDB } from './config/db.js';
+import serverless from "serverless-http";
+
 
 import productRoutes from './routes/product.route.js';
 
@@ -9,20 +10,26 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-const __dirname = path.resolve();
+// Always connect to DB per request
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
 app.use(express.json());
 
 app.use('/api/products', productRoutes);
 
 
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/dist')));
-  app.get('/*any', (req, res) => {
-     res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+// Only run app.listen in non-production environments
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    connectDB();
+    console.log(`Server running on http://localhost:${PORT}`);
   });
 }
 
-app.listen(PORT, () => {
-  connectDB();
-  console.log('Server is running on http://localhost:5000');
-})
+// Export serverless function
+export const handler = serverless(app);
+export default app;
