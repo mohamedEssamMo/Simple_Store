@@ -1,11 +1,10 @@
 {
   "name": "store",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
     "start": "node server.js"
   },
   "keywords": [],
