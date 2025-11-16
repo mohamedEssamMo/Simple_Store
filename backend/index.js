@@ -17,8 +17,12 @@ app.use(async (req, res, next) => {
 });
 
 app.use(express.json());
+// Routes
+app.get("/", (req, res) => {
+  res.send("API is running....");
+});
 
-app.use('/api/products', productRoutes);
+app.use("/api/products", productRoutes);
 
 
 // Only run app.listen in non-production environments
