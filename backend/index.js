@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import serverless from "serverless-http";
+import cors from 'cors';
 
 
 import productRoutes from './routes/product.route.js';
@@ -10,6 +11,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app = express();
 
+app.use(cors());
 // Always connect to DB per request
 app.use(async (req, res, next) => {
   await connectDB();

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { Product } from "../types";
+import { API_URL } from './../config';
 
 interface ProductStore {
   products: Product[];
@@ -19,7 +20,7 @@ export const useProductStore = create<ProductStore>((set) => ({
       return { success: false, message: "All fields are required." };
     }
 
-    const res = await fetch("/api/products", {
+    const res = await fetch(`${API_URL}/api/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProduct),
@@ -32,7 +33,7 @@ export const useProductStore = create<ProductStore>((set) => ({
 
   fetchProducts: async () => {
     try {
-      const res = await fetch("/api/products");
+      const res = await fetch(`${API_URL}/api/products`);
       const data = await res.json();
       set({ products: data.data });
       return { success: true, message: "Products fetched successfully." };
@@ -43,7 +44,7 @@ export const useProductStore = create<ProductStore>((set) => ({
 
   deleteProduct: async (pid: string) => {
     try {
-      const res = await fetch(`/api/products/${pid}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/api/products/${pid}`, { method: "DELETE" });
       const data = await res.json();
       if (!data.success) return { success: false, message: data.message };
       set((state) => ({
@@ -60,7 +61,7 @@ export const useProductStore = create<ProductStore>((set) => ({
       return { success: false, message: "All fields are required." };
     }
     try {
-      const res = await fetch(`/api/products/${pid}`, {
+      const res = await fetch(`${API_URL}/api/products/${pid}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedProduct),
