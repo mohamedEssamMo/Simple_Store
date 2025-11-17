@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import type { Product } from "../types";
 import { API_URL } from './../config';
-
 interface ProductStore {
   products: Product[];
   setProducts: (products: Product[]) => void;
